@@ -36,8 +36,10 @@ public class A5Q1 {
                 + "The guessing player has ");
         System.out.println("a maximum of six lives. Good luck.");
 
+        //if the user imputs the word 'yes' then it restarts the game to play again
         String answer = "yes";
 
+        //if while loop is true it plays the game. If false it quits the game
         while (answer.equals("yes")) {
             //Statment if the game is going to play again or not
             int replay = 0;
@@ -51,8 +53,17 @@ public class A5Q1 {
             //counter to guess how many letters that the user gets correct
             int correct = 0;
 
+            //new counter for array position based on guess number
+            int arrayCount = 0;
+
+            //to make sure that the user doesn't try anything funny. To count their spams.
+            int spamCounter = 0;
+
             //creating a boolean to cheack if game is done
             boolean finished = false;
+
+            //allowing only the 26 characters of the alphabet to be inputed and outputed.
+            char show[] = new char[26];
 
             //blank space
             System.out.println("");
@@ -104,7 +115,7 @@ public class A5Q1 {
                         || character == '.' || character == ',' || character == '?'
                         || character == '/' || character == '"' || character == ';'
                         || character == '|' || character == '-' || character == '+'
-                        || character == '=' || character == '_') {
+                        || character == '=' || character == '_' || character == ' ') {
 
                     //telling the user that these characters aren't allowed
                     System.out.println("Sorry, that's not a word. Please retype in a word.");
@@ -148,7 +159,145 @@ public class A5Q1 {
                 //allowing the user to input
                 String guess = input.nextLine();
 
-                //if user inouts more than one letter. It only accepts the first one
+                //changing all of their uppercase to lowercase
+                guess = guess.toLowerCase();
+
+                if (guess.equals(" ")) {
+                    System.out.println("You don't need to go to space. Stay on Earth "
+                            + "and try another letter.");
+
+                    //allowing the user to input
+                    guess = input.nextLine();
+
+                    //changing all of their uppercase to lowercase
+                    guess = guess.toLowerCase();
+                }
+                //converting the guessed word into a character for the for loop below to work
+                char guess1 = guess.charAt(0);
+
+                //making sure that if the person already types in that letter, they can
+                //be alerted that they already guessed that letter. And they don't lose a life
+                for (int i = 0; i < arrayCount; i++) {
+                    if (guess1 == show[i]) {
+                        while (guess1 == show[i]) {
+
+                            //telling the user that they have already guessed that letter.
+                            System.out.println("That's already guessed. Try another letter.");
+
+                            //allowing the user to input
+                            guess = input.nextLine();
+
+                            //changing all of their uppercase to lowercase
+                            guess = guess.toLowerCase();
+
+                            //restating the character for the spam loop to work
+                            guess1 = guess.charAt(0);
+
+                            //if the user starts to spam it adds to the loops below to
+                            //see the results of spaming the same letter over again.
+                            spamCounter = spamCounter + 1;
+
+                            //if they spam twice it allerts them to stop and play the game.
+                            if (spamCounter == 2) {
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("Don't spam. Please play the game.");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                            }
+
+                            //If the user keeps spaming it'll tell it to stop and play the game
+                            if (spamCounter == 3) {
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("Dude.... stop. Play the game.");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                            }
+
+                            //telling the user to stop and to play the game
+                            if (spamCounter == 4) {
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("Serously? I thought I told you to stop. Just play "
+                                        + "the game.");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                            }
+
+                            //alearting the user that they need to stop and play the game
+                            if (spamCounter == 5) {
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("This isn't funny. Please play the game.");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                            }
+
+                            //giving the user one more chance to play the game
+                            if (spamCounter == 7) {
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("Fine. I dare you to try one more time.");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                            }
+
+                            //telling the user that they trolled quit. Spamming too many times
+                            //the game will quit on you
+                            if (spamCounter == 8) {
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("Congratulations! You spam quit!");
+                                System.out.println("");
+                                System.out.println("  __,                            ,__");
+                                System.out.println(" (  •>                          <•  )");
+                                System.out.println(" / )∞|¬__________________________ß  |");
+                                System.out.println("«_√_/  |ERROR|RESTART GAME PLEASE|__∫≥");
+
+                                //shutting down the code from the spamming
+                                System.exit(0);
+                            }
+                        }
+                    }
+                }
+
+                //showing the users what letters they have guessed. So then they
+                //won't retype the same letter over again
+                show[arrayCount] = guess1;
+                System.out.println("");
+                System.out.println("You have guessed the following letters: ");
+
+                for (int i = 0; i < arrayCount; i++) {
+                    System.out.print(show[i] + " ");
+                }
+
+                //blank space
+                System.out.println("");
+
+                //if user inputs more than one letter. It only accepts the first one
                 char firstWord = tempWord.charAt(0);
 
                 //loop that goes and checks each letter
@@ -265,6 +414,7 @@ public class A5Q1 {
                         System.out.println("    =====");
                     }
 
+                    //telling the user that lost that first user's word.
                     System.out.println("The word that the first user has inputed was '"
                             + tempWord + "'.");
 
@@ -290,8 +440,8 @@ public class A5Q1 {
                         System.out.println("©(∂ ∂)");
                         System.out.println("you found me");
 
+                        //quiting the game
                         finished = true;
-
                         break;
                     }
 
@@ -409,7 +559,6 @@ public class A5Q1 {
                             //stops the game
                             break;
                         }
-
                     }
 
                     //what happens if the user wants to continue the game
@@ -420,6 +569,10 @@ public class A5Q1 {
                         break;
                     }
                 }
+                //adding over time the letters that the user has inputed. Inputing
+                //too much of the same letter will result in different outputs from
+                //the computer.
+                arrayCount = arrayCount + 1;
             }
         }
     }
